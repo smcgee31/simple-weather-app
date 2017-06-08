@@ -10,7 +10,31 @@
   <body>
     <div class="wrapper">
       <div class="main">
-        <button onclick="getCurrentWeather()">Fetch it Boy!</button>
+        <h2>How's the Weather?</h2>
+
+        <div>
+          <label for="zipcodeInput">Enter zipcode</label>
+          <input id="zipcodeInput" type="zipcode" name="zipcode">
+          <button id="zipSubmit" onclick="displayCurrentWeather()">Submit</button>
+        </div>
+
+        <div id="weatherDisplay">
+          <!--<div id="location">
+            <h3 class="cityState">City, State here</h3>
+            <p class="updateTime">Last updated time here</p>
+          </div>
+          <div id="temp">
+            <img src="Image Source Here" alt="weather_image">
+            <p class="generalCondition">Weather condition here</p>
+            <p class="currTemp">Current Temperature here</p>
+            <p class="feelsLikeTemp">Feels Like Temperature here</p>
+          </div>
+          <div id="wind">
+            <p class="windDir">Wind Direction here</p>
+            <p class="windSpeed">Wind Speed here</p>
+          </div>-->
+        </div>
+
       </div>
     </div>
 

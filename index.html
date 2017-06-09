@@ -10,29 +10,41 @@
   <body>
     <div class="wrapper">
       <div class="main">
-        <h2>How's the Weather?</h2>
+        <h1>How's the Weather?</h1>
 
-        <div>
-          <label for="zipcodeInput">Enter zipcode</label>
-          <input id="zipcodeInput" type="zipcode" name="zipcode">
-          <button id="zipSubmit" onclick="displayCurrentWeather()">Submit</button>
+        <div id="weatherForm">
+          <div id="tempScale">
+            <input 
+              id="scaleCheck" 
+              type="radio" 
+              name="scaleCheck" 
+              value="farenheit"
+              required
+              checked
+            > &deg;F
+
+            <input 
+              id="scaleCheck" 
+              type="radio" 
+              name="scaleCheck" 
+              value="celsius"
+              required
+            > &deg;C
+          </div>
+
+          <div id="zipcodeForm">
+            <label for="zipcodeInput">Enter zipcode</label>
+            <input 
+              id="zipcodeInput" 
+              type="zipcode" 
+              name="zipcode"
+            >
+            <button id="zipSubmit" onclick="runWeather()">Submit</button>
+          </div>
         </div>
 
         <div id="weatherDisplay">
-          <!--<div id="location">
-            <h3 class="cityState">City, State here</h3>
-            <p class="updateTime">Last updated time here</p>
-          </div>
-          <div id="temp">
-            <img src="Image Source Here" alt="weather_image">
-            <p class="generalCondition">Weather condition here</p>
-            <p class="currTemp">Current Temperature here</p>
-            <p class="feelsLikeTemp">Feels Like Temperature here</p>
-          </div>
-          <div id="wind">
-            <p class="windDir">Wind Direction here</p>
-            <p class="windSpeed">Wind Speed here</p>
-          </div>-->
+          <!--Weather will be displayed here-->
         </div>
 
       </div>

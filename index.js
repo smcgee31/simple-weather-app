@@ -6,86 +6,94 @@ const config = {
 };
 
 const weatherDisplay = document.querySelector('#weatherDisplay');
-// Need a check to see whether the user wants C or F degrees
+const results = {
+    city: ''
+  , state: ''
+  , updateTime: ''
+  , url: ''
+  , condition: ''
+  , currTemp: ''
+  , feelsLikeTemp: ''
+  , windDir: ''
+  , windSpeed: ''
+}
 
-const displayCurrentWeather = () => {
-  return getCurrentWeather()
-  .then((data) => {
-    if (degreesCheck === 'Celsius') {
-      return map.celsius(data);
-    }
-      return map.farenheit(data);
+function runWeather() {
+  let radios = document.querySelectorAll('input[ type = "radio" ]:checked');
+  if (radios.length < 1) {
+    console.error('Temperature scale not selected');
+    alert('Please select a temperature scale');
+    return;
+  }
+
+  let scaleCheck = document.querySelector('input[ name = "scaleCheck" ]:checked').value;
+  let zipcode = document.getElementById('zipcodeInput').value;
+
+  return getCurrentWeather(zipcode)
+  .then((response) => {
+    return handleResponse(response, scaleCheck)
   })
-  .then((map) => {
-    // do something with the mapped data
+  .then((results) => {
+    return displayWeather(results);
+  })
+  .catch((error) => {
+    console.error('error:', error);
   });
 }
 
-const getCurrentWeather = () => {
-  let zipcode = document.getElementById('zipcodeInput').value;
+function getCurrentWeather(zipcode) {
   return axios({
     method: 'GET',
     url: `${config.BASE_URL}/current.json?key=${config.SECRET_KEY}&q=${zipcode}`
   });
-};
-
-const icon = (url) => {
-  return axios({
-    method: 'GET',
-    url: `http:${url}`
-  });
 }
 
-const handleResponse = (response) => {
-  console.log(response.data);
-  const current = response.data.current;
-  const condition = current.condition;
-  const location = response.data.location;
-  const url = condition.icon;
-
-  return icon(url)
-    .then()
-
-};
-
-const map = (data) => {
-  let farenheit = {
-      city: ''
-    , state: ''
-    , last_updated: ''
-    , condition: ''
-    , currentTemp: ''
-    , feelsLike: ''
-    , windDirection: ''
-    , windSpeed: ''
-  };
-
-
+function handleResponse(response, scaleCheck) {
+  if (scaleCheck === 'celsius') {
+      results.city = `${response.data.location.name}`
+    , results.state = `${response.data.location.region}`
+    , results.updateTime = `${response.data.current.last_updated}`
+    , results.url = `http:${response.data.current.condition.icon}`
+    , results.condition = `${response.data.current.condition.text}`
+    , results.currTemp = `${response.data.current.temp_c}`
+    , results.feelsLikeTemp = `${response.data.current.feelslike_c}`
+    , results.windDir = `${response.data.current.wind_dir}`
+    , results.windSpeed = `${response.data.current.wind_kph}kph`
+  } else {
+      results.city = `${response.data.location.name}`
+    , results.state = `${response.data.location.region}`
+    , results.updateTime = `${response.data.current.last_updated}`
+    , results.url = `http:${response.data.current.condition.icon}`
+    , results.condition = `${response.data.current.condition.text}`
+    , results.currTemp = `${response.data.current.temp_f}`
+    , results.feelsLikeTemp = `${response.data.current.feelslike_f}`
+    , results.windDir = `${response.data.current.wind_dir}`
+    , results.windSpeed = `${response.data.current.wind_mph}mph`
+  }
+  return results;
 }
 
-const html_farenheit = () => {
-  return `
-    <div id="weatherDisplay">
-      <div id="location">
-        <h3 class="cityState">${location.name}, ${location.region}</h3>
-        <p class="updateTime">${current.last_updated}</p>
+function displayWeather(results) {
+  function html() {
+    return `
+      <div id="weatherDisplay">
+        <div id="location">
+          <h3 class="cityState">${results.city}, ${results.state}</h3>
+          <p class="updateTime">${results.updateTime}</p>
+        </div>
+        <div id="temp">
+          <img src="${results.url}" alt="weather_image">
+          <p class="generalCondition">${results.condition}</p>
+          <p class="currTemp">${results.currTemp}</p>
+          <p class="feelsLikeTemp">${results.feelsLikeTemp}</p>
+        </div>
+        <div id="wind">
+          <p class="windDir">${results.windDir}</p>
+          <p class="windSpeed">${results.windSpeed}</p>
+        </div>
       </div>
-      <div id="temp">
-        <img src="http:${condition.icon}" alt="weather_image">
-        <p class="generalCondition">${condition.text}</p>
-        <p class="currTemp">${current.temp_f}</p>
-        <p class="feelsLikeTemp">${current.feelslike_f}</p>
-      </div>
-      <div id="wind">
-        <p class="windDir">${current.wind_dir}</p>
-        <p class="windSpeed">${current.wind_mph}</p>
-      </div>
-    </div>
-  `
+    `;
+  }
+
+  weatherDisplay.innerHTML = html();
 }
-
-  weatherDisplay.innerHTML = html_farenheit;
-
-const handleError = (error) => {
-  console.error('Error occurred: ', error)
-};

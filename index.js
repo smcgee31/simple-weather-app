@@ -71,7 +71,7 @@ function handleResponse(response, scaleCheck) {
 function displayWeather(results) {
   function html() {
     return `
-      <div id="weatherDisplay">
+      <div class="card card-2">
         <div id="location">
           <p class="cityState">${results.city}, ${results.state}</p>
           <p class="updateTime">Last updated: ${results.updateTime}</p>
@@ -90,5 +90,5 @@ function displayWeather(results) {
     `;
   }
 
-  weatherDisplay.innerHTML = html();
+  return weatherDisplay.innerHTML = html();
 }

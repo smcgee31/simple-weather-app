@@ -78,8 +78,8 @@ function displayWeather(results) {
         </div>
         <div id="temp">
           <img src="${results.url}" alt="weather_image">
-          <p class="generalCondition">Conditions are generally ${results.condition}</p>
-          <p class="currTemp">The current temperature is ${results.currTemp}&deg;</p>
+          <p class="generalCondition">${results.condition}</p>
+          <p class="currTemp">${results.currTemp}<span class="degMarker">&deg;F</span></p>
           <p class="feelsLikeTemp">(feels like ${results.feelsLikeTemp}&deg;)</p>
         </div>
         <div id="wind">

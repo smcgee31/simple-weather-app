@@ -33,16 +33,17 @@ body {
 #location {
   background-color: #2A4E6E;
   color: white;
-  padding: .25em;
+  padding: 21px;
 }
 
 .cityState {
-  font-size: 2em;
+  font-size: 36px;
+  margin-bottom: 12px;
 }
 
 #temp, #wind {
-  font-size: 1.25em;
-  margin: 1.25em;
+  font-size: 21px;
+  margin: 20px;
 }
 
 #temp img {
@@ -50,6 +51,18 @@ body {
   height: 120px;
 }
 
-.generalCondition {
-  margin: 0;
+.currTemp {
+  margin-top: 10px;
+  font-size: 60px;
+}
+
+.degMarker{
+  position: relative;
+  top: -23px;
+  font-size: 25px;
+}
+
+.feelsLikeTemp {
+  font-style: italic;
+  font-size: 15px;
 }

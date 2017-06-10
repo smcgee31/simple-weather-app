@@ -1,21 +1,21 @@
 'use strict';
 
 const config = {
-  BASE_URL: 'http://api.apixu.com/v1',
+  BASE_URL: 'https://api.apixu.com/v1',
   SECRET_KEY: '1c8abf4fe2fa433581930127172604'
 };
 
 const weatherDisplay = document.querySelector('#weatherDisplay');
 const results = {
-    city: ''
-  , state: ''
-  , updateTime: ''
-  , url: ''
-  , condition: ''
-  , currTemp: ''
+    city:          ''
+  , state:         ''
+  , updateTime:    ''
+  , url:           ''
+  , condition:     ''
+  , currTemp:      ''
   , feelsLikeTemp: ''
-  , windDir: ''
-  , windSpeed: ''
+  , windDir:       ''
+  , windSpeed:     ''
 }
 
 function runWeather() {
@@ -49,27 +49,22 @@ function getCurrentWeather(zipcode) {
 }
 
 function handleResponse(response, scaleCheck) {
+    results.city          = `${response.data.location.name}`;
+    results.state         = `${response.data.location.region}`;
+    results.updateTime    = `${response.data.current.last_updated}`;
+    results.condition     = `${response.data.current.condition.text}`;
+    results.currTemp      = `${response.data.current.temp_f}`;
+    results.feelsLikeTemp = `${response.data.current.feelslike_f}`;
+    results.windDir       = `${response.data.current.wind_dir}`;
+    results.windSpeed     = `${response.data.current.wind_mph} mph`;
+    results.url           = `https:${response.data.current.condition.icon}`;
+    
   if (scaleCheck === 'celsius') {
-      results.city = `${response.data.location.name}`
-    , results.state = `${response.data.location.region}`
-    , results.updateTime = `${response.data.current.last_updated}`
-    , results.url = `http:${response.data.current.condition.icon}`
-    , results.condition = `${response.data.current.condition.text}`
-    , results.currTemp = `${response.data.current.temp_c}`
-    , results.feelsLikeTemp = `${response.data.current.feelslike_c}`
-    , results.windDir = `${response.data.current.wind_dir}`
-    , results.windSpeed = `${response.data.current.wind_kph}kph`
-  } else {
-      results.city = `${response.data.location.name}`
-    , results.state = `${response.data.location.region}`
-    , results.updateTime = `${response.data.current.last_updated}`
-    , results.url = `http:${response.data.current.condition.icon}`
-    , results.condition = `${response.data.current.condition.text}`
-    , results.currTemp = `${response.data.current.temp_f}`
-    , results.feelsLikeTemp = `${response.data.current.feelslike_f}`
-    , results.windDir = `${response.data.current.wind_dir}`
-    , results.windSpeed = `${response.data.current.wind_mph}mph`
+    results.currTemp      = `${response.data.current.temp_c}`;
+    results.feelsLikeTemp = `${response.data.current.feelslike_c}`;
+    results.windSpeed     = `${response.data.current.wind_kph} kph`;
   }
+
   return results;
 }
 
@@ -78,18 +73,18 @@ function displayWeather(results) {
     return `
       <div id="weatherDisplay">
         <div id="location">
-          <h3 class="cityState">${results.city}, ${results.state}</h3>
-          <p class="updateTime">${results.updateTime}</p>
+          <p class="cityState">${results.city}, ${results.state}</p>
+          <p class="updateTime">Last updated: ${results.updateTime}</p>
         </div>
         <div id="temp">
           <img src="${results.url}" alt="weather_image">
-          <p class="generalCondition">${results.condition}</p>
-          <p class="currTemp">${results.currTemp}</p>
-          <p class="feelsLikeTemp">${results.feelsLikeTemp}</p>
+          <p class="generalCondition">Conditions are generally ${results.condition}</p>
+          <p class="currTemp">The current temperature is ${results.currTemp}&deg;</p>
+          <p class="feelsLikeTemp">(feels like ${results.feelsLikeTemp}&deg;)</p>
         </div>
         <div id="wind">
-          <p class="windDir">${results.windDir}</p>
-          <p class="windSpeed">${results.windSpeed}</p>
+          <p class="windDir">Winds from the ${results.windDir}</p>
+          <p class="windSpeed">at ${results.windSpeed}</p>
         </div>
       </div>
     `;

@@ -1,0 +1,45 @@
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #F6FBFF;
+  text-align: center;
+  -moz-box-sizing: border-box;
+  box-shadow: border-box;
+}
+
+.card {
+  background: #6F8BA5;
+  border-radius: 2px;
+  display: inline-block;
+  width: 400px;
+  height: 600px;
+  margin: 1rem;
+  position: relative;
+}
+
+.card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#location {
+  background-color: #2A4E6E;
+  color: white;
+  padding: .25em;
+}
+
+.cityState {
+  font-size: 2em;
+}
+
+#temp, #wind {
+  font-size: 1.25em;
+  margin: 1.25em;
+}
+
+#temp img {
+  width: 150px;
+  height: 150px;
+}
+
+.generalCondition {
+  margin
+}

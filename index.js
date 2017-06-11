@@ -5,7 +5,9 @@ const config = {
   SECRET_KEY: '1c8abf4fe2fa433581930127172604'
 };
 
+const submit = document.querySelector('#zipcodeInput');
 const weatherDisplay = document.querySelector('#weatherDisplay');
+
 const results = {
     city:          ''
   , state:         ''
@@ -17,6 +19,13 @@ const results = {
   , windDir:       ''
   , windSpeed:     ''
 }
+
+submit.addEventListener('keyup', function(event) {
+  event.preventDefault();
+  if (event.key === 'Enter') {
+    runWeather();
+  }
+});
 
 function runWeather() {
   let radios = document.querySelectorAll('input[ type = "radio" ]:checked');
@@ -37,7 +46,9 @@ function runWeather() {
     return displayWeather(results);
   })
   .catch((error) => {
-    console.error('error:', error);
+    swal('Oops...',
+    `${error.response.data.error.message} Invalid zipcode.`,
+    'error');
   });
 }
 
@@ -66,6 +77,10 @@ function handleResponse(response, scaleCheck) {
   }
 
   return results;
+}
+
+function handleError(response) {
+  console.error('ERROR:', response);
 }
 
 function displayWeather(results) {

@@ -5,8 +5,28 @@ const config = {
   SECRET_KEY: '1c8abf4fe2fa433581930127172604'
 };
 
-const submit = document.querySelector('#zipcodeInput');
+const submit = document.querySelector('#locationInput');
 const weatherDisplay = document.querySelector('#weatherDisplay');
+let coords;
+
+if(navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function(a)  {
+    if(a.latitude) {
+      coords = `${a.latitude}, ${a.longitude}`;
+      runWeather(coords);
+    }
+
+    if (a.address) {
+      coords = `${a.postalCode}`;
+      runWeather(coords);
+    }
+
+    if (a.coords) {
+      coords = `${a.coords.latitude}, ${a.coords.longitude}`;
+      runWeather(coords);
+    }
+  }); 
+}
 
 const results = {
     city:          ''
@@ -23,7 +43,7 @@ const results = {
 submit.addEventListener('keyup', function(event) {
   event.preventDefault();
   if (event.key === 'Enter') {
-    runWeather();
+    runWeather(coords);
   }
 });
 
@@ -36,9 +56,9 @@ function runWeather() {
   }
 
   let scaleCheck = document.querySelector('input[ name = "scaleCheck" ]:checked').value;
-  let zipcode = document.getElementById('zipcodeInput').value;
+  let location = document.getElementById('locationInput').value;
 
-  return getCurrentWeather(zipcode)
+  return getCurrentWeather(location || coords)
   .then((response) => {
     return handleResponse(response, scaleCheck)
   })
@@ -47,15 +67,15 @@ function runWeather() {
   })
   .catch((error) => {
     swal('Oops...',
-    `${error.response.data.error.message} Invalid zipcode.`,
+    `${error.response.data.error.message} Invalid location.`,
     'error');
   });
 }
 
-function getCurrentWeather(zipcode) {
+function getCurrentWeather(location) {
   return axios({
     method: 'GET',
-    url: `${config.BASE_URL}/current.json?key=${config.SECRET_KEY}&q=${zipcode}`
+    url: `${config.BASE_URL}/current.json?key=${config.SECRET_KEY}&q=${location}`
   });
 }
 

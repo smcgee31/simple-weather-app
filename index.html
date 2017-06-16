@@ -13,27 +13,26 @@
       <div class="main">
 
         <div id="weatherForm">
-            <div id="tempScale">
-              <div class="switch">
-                <input type="radio" class="switch-input" name="scaleCheck" value="farenheit" id="farenheit" checked>
-                <label for="farenheit" class="switch-label switch-label-off">&deg;F</label>
-                <input type="radio" class="switch-input" name="scaleCheck" value="celsius" id="celsius">
-                <label for="celsius" class="switch-label switch-label-on">&deg;C</label>
-                <span class="switch-selection"></span>
-              </div>
+          <div id="tempScale">
+            <div class="switch">
+              <input type="radio" class="switch-input" name="scaleCheck" value="farenheit" id="farenheit" checked>
+              <label for="farenheit" class="switch-label switch-label-off">&deg;F</label>
+              <input type="radio" class="switch-input" name="scaleCheck" value="celsius" id="celsius">
+              <label for="celsius" class="switch-label switch-label-on">&deg;C</label>
+              <span class="switch-selection"></span>
             </div>
+          </div>
 
-            <div id="zipcodeForm">
-              <input 
-                id="zipcodeInput" 
-                type="zipcode" 
-                name="zipcode"
-                placeholder="  -- zipcode --"
-                maxlength="5"
-                size="8"
-              >
-              <button id="submit" type="button" onclick="runWeather()">Submit</button>
-            </div>
+          <div id="locationForm">
+            <input 
+              id="locationInput" 
+              type="text"
+              name="location"
+              placeholder="zipcode or City, State"
+              size="25"
+            >
+            <button id="submit" type="button" onclick="runWeather()">Submit</button>
+          </div>
         </div>
 
         <div id="weatherDisplay">

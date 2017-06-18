@@ -136,63 +136,6 @@ body {
   line-height: 23px;
 }
 
-.card {
-  background: #6F8BA5;
-  border-radius: 3px;
-  display: inline-block;
-  width: 400px;
-  margin-top: 1rem;
-  position: relative;
-}
-
-.card-2 {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
-
-#location {
-  background-color: #2A4E6E;
-  color: white;
-  padding: 21px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
-.cityState {
-  font-size: 36px;
-  margin-bottom: 12px;
-}
-
-#temp, #wind {
-  font-size: 21px;
-  margin: 20px;
-}
-
-#temp img {
-  width: 120px;
-  height: 120px;
-}
-
-.currTemp {
-  margin-top: 10px;
-  font-size: 60px;
-}
-
-.degMarker{
-  position: relative;
-  top: -23px;
-  font-size: 25px;
-}
-
-.feelsLikeTemp {
-  font-style: italic;
-  font-size: 15px;
-}
-
-
-
-
-/* FLIPPER CARD START */
-
 /* entire container, keeps perspective */
 
 .flip-container {
@@ -211,13 +154,13 @@ body {
 
 /* all containers have the same size and border */
 
-.flip-container,
-.front,
-.back {
+/*.flip-container,
+.farenheit,
+.celsius {
   width: 200px;
   height: 260px;
   border: 1px solid #ccc;
-}
+}*/
 
 
 /* flip speed goes here */
@@ -229,10 +172,10 @@ body {
 }
 
 
-/* hide back of pane during swap */
+/* hide back of pane during swap (celsius side) */
 
-.front,
-.back {
+.farenheit,
+.celsius {
   backface-visibility: hidden;
   position: absolute;
   top: 0;
@@ -240,26 +183,19 @@ body {
 }
 
 
-/* front pane, placed above back */
+/* farenheit pane, placed above celsius */
 
-.front {
-  background-color: blue;
+.farenheit {
   z-index: 2;
   /* for firefox 31 */
   transform: rotateY(0deg);
 }
 
 
-/* back, initially hidden pane */
+/* back/celsius, initially hidden pane */
 
-.back {
-  background-color: red;
+.celsius {
   transform: rotateY(180deg);
-}
-
-.text {
-  color: white;
-  text-align: center;
 }
 
 .sexyButton {
@@ -272,4 +208,59 @@ body {
   color: #07a;
   position: relative;
   top: -130px;
+}
+
+.flip-container,
+.farenheit,
+.celsius,
+.card {
+  width: 400px
+}
+
+.card {
+  background: #6F8BA5;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 1rem;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.location {
+  background-color: #2A4E6E;
+  color: white;
+  padding: 21px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.cityState {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.temp, .wind {
+  font-size: 21px;
+  margin: 20px;
+}
+
+.temp img {
+  width: 120px;
+  height: 120px;
+}
+
+.currTemp {
+  margin-top: 10px;
+  font-size: 60px;
+}
+
+.degMarker{
+  position: relative;
+  top: -23px;
+  font-size: 25px;
+}
+
+.feelsLikeTemp {
+  font-style: italic;
+  font-size: 15px;
 }

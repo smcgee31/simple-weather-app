@@ -5,10 +5,21 @@ const config = {
   SECRET_KEY: '1c8abf4fe2fa433581930127172604'
 };
 
+let coords;
 const submit = document.querySelector('#locationInput');
 const weatherDisplay_f = document.querySelector('#weatherDisplay_f');
 const weatherDisplay_c = document.querySelector('#weatherDisplay_c');
-let coords;
+const results = {
+    city:          ''
+  , state:         ''
+  , updateTime:    ''
+  , url:           ''
+  , condition:     ''
+  , currTemp:      ''
+  , feelsLikeTemp: ''
+  , windDir:       ''
+  , windSpeed:     ''
+}
 
 if(navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function(a)  {
@@ -29,24 +40,16 @@ if(navigator.geolocation) {
   }); 
 }
 
-const results = {
-    city:          ''
-  , state:         ''
-  , updateTime:    ''
-  , url:           ''
-  , condition:     ''
-  , currTemp:      ''
-  , feelsLikeTemp: ''
-  , windDir:       ''
-  , windSpeed:     ''
-}
-
 submit.addEventListener('keyup', function(event) {
   event.preventDefault();
   if (event.key === 'Enter') {
     runWeather(coords);
   }
 });
+
+function toggle() {
+  document.querySelector('#flip-toggle').classList.toggle('hover');
+}
 
 function runWeather() {
   let radios = document.querySelectorAll('input[ type = "radio" ]:checked');
@@ -56,7 +59,6 @@ function runWeather() {
     return;
   }
 
-  let scaleCheck = document.querySelector('input[ name = "scaleCheck" ]:checked').value;
   let location = document.getElementById('locationInput').value;
 
   return getCurrentWeather(location || coords)
@@ -96,10 +98,6 @@ function mapCurrent(response) {
 
   return results;
 }
-
-// function handleError(response) {
-//   console.error('ERROR:', response);
-// }
 
 function displayWeather(results) {
 

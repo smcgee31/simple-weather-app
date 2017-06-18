@@ -146,22 +146,9 @@ body {
 
 /* flip the pane horizontally when hovered */
 
-.flip-container:hover .flipper,
 .flip-container.hover .flipper {
   transform: rotateY(180deg);
 }
-
-
-/* all containers have the same size and border */
-
-/*.flip-container,
-.farenheit,
-.celsius {
-  width: 200px;
-  height: 260px;
-  border: 1px solid #ccc;
-}*/
-
 
 /* flip speed goes here */
 
@@ -170,7 +157,6 @@ body {
   transform-style: preserve-3d;
   position: relative;
 }
-
 
 /* hide back of pane during swap (celsius side) */
 
@@ -182,7 +168,6 @@ body {
   left: 0;
 }
 
-
 /* farenheit pane, placed above celsius */
 
 .farenheit {
@@ -191,24 +176,13 @@ body {
   transform: rotateY(0deg);
 }
 
-
 /* back/celsius, initially hidden pane */
 
 .celsius {
   transform: rotateY(180deg);
 }
 
-.sexyButton {
-  background: #f9f9f9;
-  display: inline-block;
-  padding: 6px 14px;
-  border: 1px solid #07a;
-  text-decoration: none;
-  cursor: pointer;
-  color: #07a;
-  position: relative;
-  top: -130px;
-}
+/* all containers have the same size and border */
 
 .flip-container,
 .farenheit,

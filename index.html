@@ -35,7 +35,26 @@
           </div>
         </div>
 
-        <div id="weatherDisplay">
+        <div class="flip-container" id="flip-toggle" ontouchstart="this.classList.toggle('hover');">
+          <div class="flipper">
+            <div class="front">
+              </br>
+              <div class='text'>
+                <h1>Front</h1>
+                <h3>(use button)</h3>
+              </div>
+            </div>
+            <div class="back">
+              </br>
+              <div class='text'>
+                <h1>Back</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button onclick="document.querySelector('#flip-toggle').classList.toggle('hover');" class="sexyButton">Toggle flip</button>
+
+        <div id="weatherDisplay_f">
           <!--JS will create weather will be displayed here-->
         </div>
 

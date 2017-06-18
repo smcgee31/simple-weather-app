@@ -60,7 +60,7 @@ function runWeather() {
 
   return getCurrentWeather(location || coords)
   .then((response) => {
-    return handleResponse(response, scaleCheck)
+    return mapCurrent(response)
   })
   .then((results) => {
     return displayWeather(results);
@@ -79,32 +79,30 @@ function getCurrentWeather(location) {
   });
 }
 
-function handleResponse(response, scaleCheck) {
+function mapCurrent(response) {
     results.city          = `${response.data.location.name}`;
     results.state         = `${response.data.location.region}`;
     results.updateTime    = `${response.data.current.last_updated}`;
     results.condition     = `${response.data.current.condition.text}`;
-    results.currTemp      = `${response.data.current.temp_f}`;
-    results.feelsLikeTemp = `${response.data.current.feelslike_f}`;
+    results.currTemp_f      = `${response.data.current.temp_f}`;
+    results.currTemp_c      = `${response.data.current.temp_c}`;
+    results.feelslike_f = `${response.data.current.feelslike_f}`;
+    results.feelslike_c = `${response.data.current.feelslike_c}`;
     results.windDir       = `${response.data.current.wind_dir}`;
-    results.windSpeed     = `${response.data.current.wind_mph} mph`;
+    results.wind_mph     = `${response.data.current.wind_mph}`;
+    results.wind_kph     = `${response.data.current.wind_kph}`;
     results.url           = `https:${response.data.current.condition.icon}`;
-    
-  if (scaleCheck === 'celsius') {
-    results.currTemp      = `${response.data.current.temp_c}`;
-    results.feelsLikeTemp = `${response.data.current.feelslike_c}`;
-    results.windSpeed     = `${response.data.current.wind_kph} kph`;
-  }
 
   return results;
 }
 
-function handleError(response) {
-  console.error('ERROR:', response);
-}
+// function handleError(response) {
+//   console.error('ERROR:', response);
+// }
 
 function displayWeather(results) {
-  function html() {
+
+  function farenheitHtml() {
     return `
       <div class="card card-2">
         <div id="location">
@@ -114,16 +112,37 @@ function displayWeather(results) {
         <div id="temp">
           <img src="${results.url}" alt="weather_image">
           <p class="generalCondition">${results.condition}</p>
-          <p class="currTemp">${results.currTemp}<span class="degMarker">&deg;F</span></p>
-          <p class="feelsLikeTemp">(feels like ${results.feelsLikeTemp}&deg;)</p>
+          <p class="currTemp">${results.currTemp_f}<span class="degMarker">&deg;F</span></p>
+          <p class="feelsLikeTemp">(feels like ${results.feelslike_f}&deg;)</p>
         </div>
         <div id="wind">
           <p class="windDir">Winds from the ${results.windDir}</p>
-          <p class="windSpeed">at ${results.windSpeed}</p>
+          <p class="windSpeed">at ${results.windSpeed} mph</p>
         </div>
       </div>
     `;
   }
 
-  return weatherDisplay.innerHTML = html();
+  function celsiusHtml() {
+    return `
+      <div class="card card-2">
+        <div id="location">
+          <p class="cityState">${results.city}, ${results.state}</p>
+          <p class="updateTime">Last updated: ${results.updateTime}</p>
+        </div>
+        <div id="temp">
+          <img src="${results.url}" alt="weather_image">
+          <p class="generalCondition">${results.condition}</p>
+          <p class="currTemp">${results.currTemp_f}<span class="degMarker">&deg;F</span></p>
+          <p class="feelsLikeTemp">(feels like ${results.feelslike_f}&deg;)</p>
+        </div>
+        <div id="wind">
+          <p class="windDir">Winds from the ${results.windDir}</p>
+          <p class="windSpeed">at ${results.windSpeed} mph</p>
+        </div>
+      </div>
+    `;
+  }
+
+  return weatherDisplay.innerHTML = farenheitHtml();
 }

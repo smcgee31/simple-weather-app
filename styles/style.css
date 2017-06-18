@@ -187,3 +187,89 @@ body {
   font-style: italic;
   font-size: 15px;
 }
+
+
+
+
+/* FLIPPER CARD START */
+
+/* entire container, keeps perspective */
+
+.flip-container {
+  perspective: 1000px;
+  display: inline-block;
+}
+
+
+/* flip the pane horizontally when hovered */
+
+.flip-container:hover .flipper,
+.flip-container.hover .flipper {
+  transform: rotateY(180deg);
+}
+
+
+/* all containers have the same size and border */
+
+.flip-container,
+.front,
+.back {
+  width: 200px;
+  height: 260px;
+  border: 1px solid #ccc;
+}
+
+
+/* flip speed goes here */
+
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+
+/* hide back of pane during swap */
+
+.front,
+.back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+/* front pane, placed above back */
+
+.front {
+  background-color: blue;
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+
+/* back, initially hidden pane */
+
+.back {
+  background-color: red;
+  transform: rotateY(180deg);
+}
+
+.text {
+  color: white;
+  text-align: center;
+}
+
+.sexyButton {
+  background: #f9f9f9;
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid #07a;
+  text-decoration: none;
+  cursor: pointer;
+  color: #07a;
+  position: relative;
+  top: -130px;
+}

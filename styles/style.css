@@ -136,20 +136,71 @@ body {
   line-height: 23px;
 }
 
+/* entire container, keeps perspective */
+
+.flip-container {
+  perspective: 1000px;
+  display: inline-block;
+}
+
+
+/* flip the pane horizontally when hovered */
+
+.flip-container.hover .flipper {
+  transform: rotateY(180deg);
+}
+
+/* flip speed goes here */
+
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* hide back of pane during swap (celsius side) */
+
+.farenheit,
+.celsius {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* farenheit pane, placed above celsius */
+
+.farenheit {
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+/* back/celsius, initially hidden pane */
+
+.celsius {
+  transform: rotateY(180deg);
+}
+
+/* all containers have the same size and border */
+
+.flip-container,
+.farenheit,
+.celsius,
+.card {
+  width: 400px
+}
+
 .card {
   background: #6F8BA5;
   border-radius: 3px;
   display: inline-block;
-  width: 400px;
   margin-top: 1rem;
   position: relative;
-}
-
-.card-2 {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-#location {
+.location {
   background-color: #2A4E6E;
   color: white;
   padding: 21px;
@@ -162,12 +213,12 @@ body {
   margin-bottom: 12px;
 }
 
-#temp, #wind {
+.temp, .wind {
   font-size: 21px;
   margin: 20px;
 }
 
-#temp img {
+.temp img {
   width: 120px;
   height: 120px;
 }
